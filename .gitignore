@@ -5,3 +5,4 @@
 *.docstates
 *.nupkg
 packages/
+App_Data/
