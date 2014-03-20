@@ -1,0 +1,7 @@
+[Oo]bj/
+[Bb]in/
+*.suo
+*.user
+*.docstates
+*.nupkg
+packages/
