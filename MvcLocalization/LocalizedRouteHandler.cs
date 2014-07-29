@@ -29,6 +29,16 @@ namespace MvcLocalization
                     // we should redirect with cookie locale
                     var routeValues = requestContext.RouteData.Values;
                     routeValues["culture"] = cookieLocale.Value;
+
+                    var queryString = requestContext.HttpContext.Request.QueryString;
+                    foreach (var key in queryString.AllKeys)
+                    {
+                        if (!routeValues.ContainsKey(key))
+                        {
+                            routeValues.Add(key, queryString[key]);
+                        }
+                    }
+
                     return new RedirectHandler(new UrlHelper(requestContext).RouteUrl(routeValues));
                 }
                 else

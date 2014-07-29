@@ -14,13 +14,25 @@ namespace MvcLocalization
             var cookieLocale = requestContext.HttpContext.Request.Cookies["locale"];
             if (cookieLocale != null)
             {
-                    routeValues["culture"] = cookieLocale.Value;
-                    return new RedirectHandler(new UrlHelper(requestContext).RouteUrl(routeValues));
+                routeValues["culture"] = cookieLocale.Value;
+            }
+            else
+            {
+                var uiCulture = CultureInfo.CurrentUICulture;
+                routeValues["culture"] = uiCulture.Name;
             }
 
-            var uiCulture = CultureInfo.CurrentUICulture;
-            routeValues["culture"] = uiCulture.Name;
-            return new RedirectHandler(new UrlHelper(requestContext).RouteUrl(routeValues));
+            var queryString = requestContext.HttpContext.Request.QueryString;
+            foreach (var key in queryString.AllKeys)
+            {
+                if (!routeValues.ContainsKey(key))
+                {
+                    routeValues.Add(key, queryString[key]);
+                }
+            }
+
+            var redirectUrl = new UrlHelper(requestContext).RouteUrl(routeValues);
+            return new RedirectHandler(redirectUrl);
         }
     }
 }
