@@ -26,6 +26,10 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("English", "ChangeLang", "Home", new { Lang = "en-US", ReturnUrl = Url.Encode(Request.RawUrl) }, new { @class = "navbar-brand", @style = "font-size:11px;" })</li>
+                    <li>@Html.ActionLink("简体中文", "ChangeLang", "Home", new { Lang = "zh-CN", ReturnUrl = Url.Encode(Request.RawUrl) }, new { @class = "navbar-brand", @style = "font-size:11px;" })</li>
+                </ul>
             </div>
         </div>
     </div>
